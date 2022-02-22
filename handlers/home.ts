@@ -1,4 +1,4 @@
-import { sendError } from '../helper';
+import { sendError } from '../helper.js';
 import { readFile } from 'fs';
 import {HttpMethods, RouteHandler} from './types';
 

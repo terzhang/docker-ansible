@@ -1,17 +1,18 @@
 {
   "name": "node-docker",
-  "version": "0.0.1-alpha",
+  "version": "0.3.0",
   "main": "app.ts",
   "scripts": {
     "start": "npm run build && node build/app.js",
-    "build": "tsc",
-    "watch": "tsc-watch --onSuccess \"node build/app.js\"",
-    "dev": "tsc && nodemon ./build/app.js"
+    "build": "tsc && tsc -p ./client/tsconfig.json",
+    "watch": "tsc-watch --onSuccess \"npm start\"",
+    "dev": "npm run build && nodemon ./build/app.js"
   },
   "devDependencies": {
     "@types/node": "^17.0.18",
     "nodemon": "^2.0.15",
     "tsc-watch": "^4.6.0",
     "typescript": "^4.5.5"
-  }
+  },
+  "type": "module"
 }

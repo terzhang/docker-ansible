@@ -107,8 +107,12 @@ export function getFile(localPath: string, mimeType: string, res: ServerResponse
     // read the file in and return it, or return a 500 if it can't be read
     fs.readFile(localPath, function(err, contents: any) {
       if (!err) {
+        // console.log(localPath)
+        // console.log(mimeType)
+        // console.log('----------')
         res.writeHead(200, {
           "Content-Type": mimeType,
+          "X-Content-Type-Options": "noSniff", 
           "Content-Length": contents.length
         });
         res.end(contents);

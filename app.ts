@@ -1,7 +1,7 @@
 import { RouteHandler } from './handlers/types';
-import * as http from 'http';
-import { buildPubSub, home, buildGen } from './handlers';
-import { getFile, sendError } from './helper';
+import http from 'http';
+import { buildPubSub, home, buildGen } from './handlers/index.js';
+import { getFile, sendError } from './helper.js';
 import * as path from 'path';
 import * as fs from 'fs';
 const hostname = '127.0.0.1';
@@ -26,7 +26,7 @@ const routes: Routes = {
 const staticExt = {
     ".html": "text/html",
     ".css": "text/css",
-    ".js": "application/javascript",
+    ".js": "text/javascript",
     // support source map
     ".map": "application/json",
     ".png": "image/png",
@@ -50,7 +50,8 @@ const server = http.createServer((req, res) => {
     const fileName = path.basename(req.url as string)
     const fileExt = path.extname(fileName)
     
-    const staticPath = __dirname + '/static/';
+    const staticPath = new URL(path.dirname(import.meta.url) + '/static/');
+    const filePath = (staticPath.pathname.substring(1) + fileName) //.replace(/\//g, '\\',)
     const extension = staticExt[fileExt as keyof typeof staticExt]
     // console.log(pathname)
     
@@ -58,15 +59,11 @@ const server = http.createServer((req, res) => {
     if (route) {
         route(req, res);
     } else if (staticRoute) {
-        if (fs.existsSync(staticPath)) {
-            console.log(staticPath+fileName);
-            console.log(fileExt);
-            console.log(extension);
-            console.log(fs.existsSync(staticPath));
-
-            getFile(staticPath+fileName, extension, res);
+        // console.log(filePath)
+        if (fs.existsSync('./static/')) {
+            getFile(filePath, extension, res);
         } else {
-            console.log("File Not found");
+            console.log(filePath+" not found");
             res.writeHead(404);
             res.end();
         }

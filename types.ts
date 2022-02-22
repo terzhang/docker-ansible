@@ -1,7 +1,4 @@
-// all the input types
-
 type APIC_SPACE = "cs" | string
-
 
 enum ENV {
     "dv1",
@@ -47,7 +44,7 @@ type PubVars = {
 //     apic_space: APIC_SPACE
 // }
 
-type Consumer = {
+export type Consumer = {
     consumer_app: string,
     consumer_org: string,
     apic_space?: APIC_SPACE,

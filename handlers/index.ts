@@ -1,3 +1,3 @@
-export { buildPubSub } from './build-pub-sub'
-export { buildGen } from './build-gen'
-export { home } from './home'
+export { buildPubSub } from './build-pub-sub.js'
+export { buildGen } from './build-gen.js'
+export { home } from './home.js'

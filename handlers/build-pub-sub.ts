@@ -1,4 +1,4 @@
-import { sendError, runCommand } from '../helper';
+import { sendError, runCommand } from '../helper.js';
 import { HttpMethods, RouteHandler } from './types';
 
 const httpMethods: HttpMethods = {
